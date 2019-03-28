@@ -17,14 +17,17 @@ public class Boss
     //魔法攻撃
     public void Magic(int MagicUse)
     {
-        int AfterMp = this.mp -= MagicUse;
-        if(AfterMp >= 0)
+        int AfterMp;
+
+        if (this.mp >= MagicUse)
         {
-            Debug.Log("魔法攻撃をした。残りMPは" + AfterMp +"。");
+            AfterMp = this.mp -= MagicUse;
+            Debug.Log("魔法攻撃をした。残りMPは" + AfterMp + "。");
         }
         else
         {
-            Debug.Log("MPが足りないため魔法が使えない。");
+            AfterMp = this.mp;
+            Debug.Log("MPが足りないため魔法が使えない。残りMPは" + AfterMp + "。");
         }
         
     }
@@ -32,7 +35,7 @@ public class Boss
     // 防御用の関数
     public void Defence(int damage)
     {
-        //Debug.Log(damage + "のダメージを受けた");
+        Debug.Log(damage + "のダメージを受けた");
         // 残りhpを減らす
         this.hp -= damage;
     }
@@ -49,18 +52,18 @@ public class test : MonoBehaviour
 
         // 攻撃用の関数を呼び出す
         lastboss.Attack();
-        lastboss.Magic(5);
 
-        for (int i =0; i<=10;i++)
+        //魔法用
+        for (int i =0; i<15;i++)
         {
-            lastboss.Magic(i);
+            lastboss.Magic(5);
         }
 
         // 防御用の関数を呼び出す
         lastboss.Defence(3);
 
 
-        /*
+        
         int[] array = {100,200,300,400,500};
 
         for (int i = 0; i < array.Length; i++)
@@ -72,7 +75,7 @@ public class test : MonoBehaviour
         {
             Debug.Log(array[f]);
         }
-        */
+        
 
     }
 
